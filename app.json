@@ -1,5 +1,16 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Freedom-10eM.ttf"
+          ]
+        }
+      ],
+      "expo-router"
+    ],
     "name": "ifranex-mobile-app",
     "slug": "ifranex-mobile-app",
     "version": "1.0.0",
@@ -26,9 +37,6 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
     "experiments": {
       "typedRoutes": true
     }

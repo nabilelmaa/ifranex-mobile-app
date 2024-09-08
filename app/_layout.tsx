@@ -1,24 +1,28 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+import { Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import "react-native-reanimated";
+import { ToastProvider } from "@/contexts/ToastContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    "Freedom-10eM": require("../assets/fonts/Kanit-SemiBold.ttf"),
   });
+
+  const [appIsReady, setAppIsReady] = useState(false)
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      setTimeout(() => {
+        SplashScreen.hideAsync();
+        setAppIsReady(true);
+      }, 2000);
     }
   }, [loaded]);
 
@@ -26,12 +30,22 @@ export default function RootLayout() {
     return null;
   }
 
+  if (!appIsReady) {
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center bg-slate-50">
+        <Image
+          source={require("../assets/images/logo.png")}
+          style={{ width: 72, height: 72 }}
+        />
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ToastProvider>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
-    </ThemeProvider>
+    </ToastProvider>
   );
 }
