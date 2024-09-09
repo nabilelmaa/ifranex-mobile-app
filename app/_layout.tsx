@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Image } from "react-native";
+import { Image, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-reanimated";
 import { ToastProvider } from "@/contexts/ToastContext";
@@ -15,7 +15,7 @@ export default function RootLayout() {
     "Freedom-10eM": require("../assets/fonts/Kanit-SemiBold.ttf"),
   });
 
-  const [appIsReady, setAppIsReady] = useState(false)
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
     if (loaded) {
@@ -37,6 +37,12 @@ export default function RootLayout() {
           source={require("../assets/images/logo.png")}
           style={{ width: 72, height: 72 }}
         />
+
+        <View className="flex-grow" />
+
+        <Text className="text-black text-lg font-semibold mb-4">
+          Ifane<Text className="text-primaryColor">X</Text>
+        </Text>
       </SafeAreaView>
     );
   }
@@ -45,6 +51,8 @@ export default function RootLayout() {
     <ToastProvider>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
     </ToastProvider>
   );

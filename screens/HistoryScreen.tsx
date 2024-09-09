@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
 const HistoryScreen = () => {
   return (
-    <View>
+    <View className="">
       <Text>History Screen</Text>
     </View>
   );

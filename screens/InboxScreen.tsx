@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
 const InboxScreen = () => {
   return (
-    <View>
-      <Text>Inbox Screen</Text>
+    <View className="">
+      <Text className="">Inbox Screen</Text>
     </View>
   );
 };

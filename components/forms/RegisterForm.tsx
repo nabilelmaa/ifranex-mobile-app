@@ -10,24 +10,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
+import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import axios from "axios";
 import { useToast } from "@/contexts/ToastContext";
-import { LinearGradient } from "expo-linear-gradient";
 import CustomText from "../CustomText";
 
-interface RegisterFormProps {
-  slideAnim: Animated.Value;
-  handleHideForm: () => void;
-  onSwitchForm: (formType: "login" | "register") => void;
-}
-
-const RegisterForm: React.FC<RegisterFormProps> = ({
-  slideAnim,
-  handleHideForm,
-  onSwitchForm,
-}) => {
+const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -144,26 +135,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   }, []);
 
   return (
-    <Animated.View
-      style={{
-        transform: [{ translateY: slideAnim }],
-        opacity: fadeAnim,
-      }}
-      className="absolute left-0 right-0 bottom-0 bg-white rounded-t-3xl shadow-lg h-5/6"
-    >
-      <LinearGradient
-        colors={["#c7d2fe", "#a5b4fc", "#818cf8"]}
-        className="absolute top-0 left-0 right-0 h-40 rounded-t-3xl"
-      />
+    <View className="flex-1 bg-white">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
-        <ScrollView className="flex-1 px-6 pt-16">
-          <TouchableOpacity
-            className="absolute top-4 right-4 z-10"
-            onPress={handleHideForm}
-          >
+        <ScrollView className="flex-1 pt-6">
+          <TouchableOpacity className="absolute top-4 right-4 z-10">
             <Feather name="x" size={24} color="white" />
           </TouchableOpacity>
 
@@ -173,14 +151,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             resizeMode="contain"
           />
 
-          <CustomText className="text-3xl font-bold mb-8 text-center text-black mt-2">
-            Create Account
+          <CustomText className="text-3xl font-bold mb-8 text-center text-gray-800">
+            Create account
           </CustomText>
 
           {formState === "email" && (
-            <Animated.View className="bg-white p-6 rounded-xl shadow-md">
-              <CustomText className="CustomText-gray-600 mb-2 font-semibold">Email</CustomText>
-              <View className="mb-4 flex-row items-center border border-gray-300 rounded-lg p-3">
+            <Animated.View className="bg-white p-6">
+              <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+                Email
+              </CustomText>
+              <View className="mb-4 flex-row items-center bg-slate-100 focus:border border-gray-300 rounded-full p-4 focus:border-primaryColor">
                 <Feather
                   name="mail"
                   size={20}
@@ -197,29 +177,33 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 />
               </View>
               <TouchableOpacity
-                className={`bg-indigo-600 rounded-lg py-4 ${
+                className={`bg-primaryColor rounded-full py-4 ${
                   loading ? "opacity-50" : ""
                 }`}
                 onPress={handleSubmit}
                 disabled={loading}
               >
-                <CustomText className="text-white text-center font-bold text-lg">
-                  {loading ? "Sending code..." : "Send Verification Code"}
-                </CustomText>
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <CustomText className="text-[#fff] text-center font-bold text-lg">
+                    Send verification code
+                  </CustomText>
+                )}
               </TouchableOpacity>
             </Animated.View>
           )}
 
           {formState === "verification" && isCodeSent && (
-            <Animated.View className="bg-white p-6 rounded-xl shadow-md">
-              <CustomText className="text-gray-600 mb-4 font-semibold text-center">
+            <Animated.View className="bg-white p-6 rounded-full">
+              <CustomText className="text-lg text-gray-600 mb-4 font-semibold text-center">
                 Enter the verification code sent to your email
               </CustomText>
               <View className="flex-row justify-between mb-6">
                 {[setOne, setTwo, setThree, setFour].map((setter, index) => (
                   <TextInput
                     key={index}
-                    className="w-14 h-14 border border-gray-300 rounded-lg text-center text-xl bg-gray-100"
+                    className="w-14 h-14 border border-gray-300 rounded-lg text-center text-xl bg-slate-50"
                     value={[one, two, three, four][index]}
                     onChangeText={(value) =>
                       handleVerificationCodeChange(value, setter, index)
@@ -230,17 +214,32 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                   />
                 ))}
               </View>
-              <TextInput
-                className="border border-gray-300 rounded-lg p-4 mb-4"
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-              />
+
               <View className="mb-4">
-                <CustomText className="text-gray-600 mb-2 font-semibold">
+                <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+                  Username
+                </CustomText>
+
+                <View className="flex-row focus:border bg-slate-100 focus:border-primaryColor items-center rounded-full p-4">
+                  <Feather
+                    name="user"
+                    size={20}
+                    color="gray"
+                    style={{ marginRight: 10 }}
+                  />
+                  <TextInput
+                    className="flex-1"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChangeText={setUsername}
+                  />
+                </View>
+              </View>
+              <View className="mb-4">
+                <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
                   Password
                 </CustomText>
-                <View className="flex-row items-center border border-gray-300 rounded-lg p-3">
+                <View className="flex-row focus:border bg-slate-100 focus:border-primaryColor items-center rounded-full p-4">
                   <Feather
                     name="lock"
                     size={20}
@@ -266,7 +265,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 </View>
               </View>
               <TouchableOpacity
-                className={`bg-indigo-600 rounded-lg py-4 ${
+                className={`bg-primaryColor rounded-full py-4 ${
                   loading ? "opacity-50" : ""
                 }`}
                 onPress={handleSubmit}
@@ -281,16 +280,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
           <TouchableOpacity
             className="self-center mt-6"
-            onPress={() => onSwitchForm("login")}
+            onPress={() => router.replace("/(auth)/login")}
           >
             <CustomText className="text-center font-semibold text-lg">
               Already have an account?{" "}
-              <CustomText className="text-indigo-600">Login</CustomText>
+              <CustomText className="text-primaryColor">Login</CustomText>
             </CustomText>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
-    </Animated.View>
+    </View>
   );
 };
 
