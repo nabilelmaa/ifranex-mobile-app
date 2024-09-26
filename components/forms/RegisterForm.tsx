@@ -147,17 +147,17 @@ const RegisterForm = () => {
 
           <Image
             source={require("../../assets/images/logo.png")}
-            className="w-16 h-16 self-center mb-12"
+            className="w-16 h-16 self-center mb-6"
             resizeMode="contain"
           />
 
-          <CustomText className="text-3xl font-bold mb-8 text-center text-gray-800">
+          <CustomText className="text-3xl font-bold mb-8 text-center">
             Create account
           </CustomText>
 
           {formState === "email" && (
             <Animated.View className="bg-white p-6">
-              <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+              <CustomText className="text-xl text-gray-900 mb-2 font-semibold">
                 Email
               </CustomText>
               <View className="mb-4 flex-row items-center bg-slate-100 focus:border border-gray-300 rounded-full p-4 focus:border-primaryColor">
@@ -196,7 +196,7 @@ const RegisterForm = () => {
 
           {formState === "verification" && isCodeSent && (
             <Animated.View className="bg-white p-6 rounded-full">
-              <CustomText className="text-lg text-gray-600 mb-4 font-semibold text-center">
+              <CustomText className="text-lg text-gray-900 mb-4 font-semibold text-center">
                 Enter the verification code sent to your email
               </CustomText>
               <View className="flex-row justify-between mb-6">
@@ -216,7 +216,7 @@ const RegisterForm = () => {
               </View>
 
               <View className="mb-4">
-                <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+                <CustomText className="text-xl text-gray-900 mb-2 font-semibold">
                   Username
                 </CustomText>
 
@@ -236,7 +236,7 @@ const RegisterForm = () => {
                 </View>
               </View>
               <View className="mb-4">
-                <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+                <CustomText className="text-xl text-gray-900 mb-2 font-semibold">
                   Password
                 </CustomText>
                 <View className="flex-row focus:border bg-slate-100 focus:border-primaryColor items-center rounded-full p-4">

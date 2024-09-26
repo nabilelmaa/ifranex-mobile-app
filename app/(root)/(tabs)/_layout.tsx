@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Tabs } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ComponentProps } from "react";
+import CustomText from "../../../components/CustomText";
 
 type FeatherIconName = ComponentProps<typeof Feather>["name"];
 
@@ -14,26 +15,23 @@ type TabIconProps = {
 };
 
 const TabIcon: React.FC<TabIconProps> = ({ name, color, focused, label }) => {
-    return (
-      <View className="items-center justify-center">
-  
-        <Feather name={name} size={24} color={color} />
-        
-   
-        <Text
-          style={{
-            color: focused ? "#4f46e5" : "#000", 
-            marginTop: 4,
-            fontSize: 12,
-            fontWeight: "600",
-          }}
-        >
-          {label}
-        </Text>
-      </View>
-    );
-  };
-  
+  return (
+    <View className="items-center justify-center">
+      <Feather name={name} size={24} color={color} />
+
+      <CustomText
+        style={{
+          color: focused ? "#4f46e5" : "#000",
+          marginTop: 4,
+          fontSize: 12,
+          fontWeight: "600",
+        }}
+      >
+        {label}
+      </CustomText>
+    </View>
+  );
+};
 
 type CustomTabBarProps = {
   state: any;
@@ -102,7 +100,7 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
           >
             <TabIcon
               name={iconName}
-              color={isFocused ? "#4f46e5" : "#000"}
+              color={isFocused ? "#4f46e5" : "#27272a"}
               focused={isFocused}
               label={label}
             />

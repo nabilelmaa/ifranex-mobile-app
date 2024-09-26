@@ -4,7 +4,7 @@ import Inbox from "../../../screens/InboxScreen";
 
 const InboxScreen = () => {
   return (
-    <SafeAreaView className="h-screen bg-lime-500">
+    <SafeAreaView className="h-screen bg-gray-50">
       <Inbox />
     </SafeAreaView>
   );

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 import {
   View,
   TextInput,
   TouchableOpacity,
   Animated,
-  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -15,7 +15,7 @@ import { Feather } from "@expo/vector-icons";
 import { useToast } from "@/contexts/ToastContext";
 import CustomText from "../CustomText";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
@@ -50,8 +50,11 @@ const LoginForm = () => {
       );
 
       const data = await response.json();
+
       if (response.ok) {
+        await SecureStore.setItemAsync("authToken", data.token);
         showToast("Login successful", "success");
+
         router.replace("/home");
       } else {
         showToast(data.message || "Invalid credentials", "error");
@@ -62,7 +65,6 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-
   return (
     <View className="flex-1 bg-white">
       <KeyboardAvoidingView
@@ -72,17 +74,17 @@ const LoginForm = () => {
         <ScrollView className="flex-1 mt-6">
           <Image
             source={require("../../assets/images/logo.png")}
-            className="w-16 h-16 mb-12 self-center"
+            className="w-16 h-16 mb-6 self-center"
             resizeMode="contain"
           />
 
-          <CustomText className="text-3xl font-bold mb-8 text-center text-gray-800">
-            Welcome Back
+          <CustomText className="text-3xl font-bold mb-8 text-center">
+            Welcome Back 👋
           </CustomText>
 
           <Animated.View className="bg-white p-6">
             <View className="mb-4">
-              <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+              <CustomText className="text-xl text-gray-900 mb-2 font-semibold">
                 Email
               </CustomText>
               <View className="flex-row items-center bg-slate-100 focus:border border-gray-200 rounded-full p-4 focus:border-primaryColor">
@@ -99,7 +101,7 @@ const LoginForm = () => {
             </View>
 
             <View className="mb-4">
-              <CustomText className="text-xl text-gray-600 mb-2 font-semibold">
+              <CustomText className="text-xl text-gray-900 mb-2 font-semibold">
                 Password
               </CustomText>
               <View className="flex-row items-center bg-slate-100 focus:border border-gray-200 rounded-full p-4 focus:border-primaryColor">

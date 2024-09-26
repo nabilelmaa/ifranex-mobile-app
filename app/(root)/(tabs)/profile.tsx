@@ -4,7 +4,7 @@ import Profile from "../../../screens/ProfileScreen";
 
 const ProfileScreen = () => {
   return (
-    <SafeAreaView className="h-screen bg-cyan-400">
+    <SafeAreaView className="h-screen bg-white">
       <Profile />
     </SafeAreaView>
   );

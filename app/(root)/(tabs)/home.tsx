@@ -4,7 +4,7 @@ import Home from "../../../screens/HomeScreen";
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView className="h-screen bg-green-500">
+    <SafeAreaView className="h-screen bg-white">
       <Home />
     </SafeAreaView>
   );

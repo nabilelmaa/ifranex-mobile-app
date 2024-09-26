@@ -4,7 +4,7 @@ import History from "../../../screens/HistoryScreen";
 
 const HistoryScreen = () => {
   return (
-    <SafeAreaView className="h-screen bg-red-500">
+    <SafeAreaView className="h-screen bg-gray-50">
       <History />
     </SafeAreaView>
   );

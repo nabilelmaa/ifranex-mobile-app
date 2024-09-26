@@ -6,6 +6,7 @@ import {
   Dimensions,
   Animated,
   ScrollView,
+  Text,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomText from "../../components/CustomText";
@@ -19,9 +20,15 @@ const IMAGES = [
 ];
 
 const TITLES = [
-  "Easy to your Cleaning Service System",
-  "Professional Cleaning at Your Fingertips",
-  "Easy to your Cleaning Service System",
+  "Easy Cleaning Solutions at Your Fingertips",
+  "Effortless Booking for Professional Cleaning",
+  "Reliable Cleaning Services, Anytime, Anywhere",
+];
+
+const DESCRIPTIONS = [
+  "Experience convenient and professional cleaning services tailored to your needs.",
+  "Book expert cleaners effortlessly with just a few clicks and enjoy peace of mind.",
+  "Get top-quality cleaning services at your convenience, wherever and whenever you need.",
 ];
 
 const { width, height } = Dimensions.get("window");
@@ -63,7 +70,6 @@ const Home = () => {
             style={{ width }}
             className="flex-1 items-center justify-center p-4"
           >
-            {/* Image */}
             <View className="w-full aspect-square rounded-full bg-blue-100 items-center justify-center overflow-hidden">
               <Image
                 source={image}
@@ -72,12 +78,14 @@ const Home = () => {
               />
             </View>
 
-            {/* Title */}
             <CustomText className="text-2xl font-bold text-center mt-8 px-4">
               {TITLES[index]}
             </CustomText>
 
-           
+            <CustomText className="text-lg text-gray-400 text-center mt-8 px-4">
+              {DESCRIPTIONS[index]}
+            </CustomText>
+
             <View className="flex-row justify-center space-x-2 mt-8">
               {IMAGES.map((_, dotIndex) => {
                 const opacity = scrollX.interpolate({
@@ -93,7 +101,7 @@ const Home = () => {
                 return (
                   <Animated.View
                     key={dotIndex}
-                    className="w-16 h-1 rounded-sm bg-primaryColor"
+                    className="w-12 h-1 rounded-sm bg-primaryColor"
                     style={{ opacity }}
                   />
                 );
@@ -103,14 +111,15 @@ const Home = () => {
         ))}
       </ScrollView>
 
-      {/* Button fixed at the bottom */}
       <View className="absolute bottom-8 w-full px-4">
         <TouchableOpacity
           onPress={handleNext}
           className="w-full bg-primaryColor rounded-full py-4 flex-row items-center justify-center"
         >
           <CustomText className="text-white text-center font-bold text-xl mr-2">
-            {currentIndex.current === IMAGES.length - 1 ? "Get Started" : "Next"}
+            {currentIndex.current === IMAGES.length - 1
+              ? "Get Started"
+              : "Next"}
           </CustomText>
           <ArrowRight color="white" size={20} />
         </TouchableOpacity>

@@ -12,7 +12,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    "Freedom-10eM": require("../assets/fonts/Kanit-SemiBold.ttf"),
+    "Freedom-10eM": require("../assets/fonts/Rubik-Medium.ttf"),
   });
 
   const [appIsReady, setAppIsReady] = useState(false);
@@ -32,7 +32,7 @@ export default function RootLayout() {
 
   if (!appIsReady) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-slate-50">
+      <SafeAreaView className="flex-1 items-center justify-center">
         <Image
           source={require("../assets/images/logo.png")}
           style={{ width: 72, height: 72 }}

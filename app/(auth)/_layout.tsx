@@ -6,13 +6,13 @@ import { ToastProvider } from "@/contexts/ToastContext";
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
- 
   return (
     <ToastProvider>
       <Stack>
         <Stack.Screen name="welcome" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="register" options={{ headerShown: false }} />
+        <Stack.Screen name="change-password" options={{ headerShown: false }} />
       </Stack>
     </ToastProvider>
   );

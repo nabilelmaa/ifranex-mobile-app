@@ -9,7 +9,8 @@
           ]
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-secure-store"
     ],
     "name": "ifranex-mobile-app",
     "slug": "ifranex-mobile-app",
