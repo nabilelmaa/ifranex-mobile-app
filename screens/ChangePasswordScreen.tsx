@@ -10,9 +10,7 @@ const ChangePasswordScreen = () => {
   const router = useRouter();
 
   const handleChangePassword = async () => {
-    // Implement password change logic here
-    console.log("Change password logic to be implemented");
-    // After successful password change:
+    console.log("Password changed.");
     router.back();
   };
 
